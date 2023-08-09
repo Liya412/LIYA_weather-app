@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900&family=Outfit:wght@100;200;300;400;500;600;700;800;900&family=Quicksand:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/68f0542e0f.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="src/styles.css" />
+    <title>SheCodes Plus hw5</title>
+  </head>
+  <body>
+    <div class="container">
+      <!-- User searches for cities -->
+      <form id="search-form">
+        <div class="row d-flex align-items-center">
+          <div class="col-1">
+            <i
+              class="fa-solid fa-location-crosshairs fa-lg crosshairs"
+              id="clickable-crosshairs"
+            ></i>
+          </div>
+          <div class="col-9">
+            <input
+              type="text"
+              placeholder="Enter a city..."
+              style="width: 28em"
+              id="user-city"
+            />
+          </div>
+          <div class="col-2">
+            <input
+              type="submit"
+              value="Search"
+              class="search-btn5"
+              id="search-btn"
+            />
+          </div>
+        </div>
+      </form>
+      <!-- Local current temperature -->
+      <div class="up-to-date-container">
+        <h1>Shanghai</h1>
+        <div class="last-update" id="local-time">Sunday 6:00pm</div>
+        <div class="row">
+          <div class="col-2">
+            <img src="images/sunny.png" alt="sunny" width="100" />
+          </div>
+          <div class="col-3 shanghai-temp">
+            <div class="d-flex align">
+              <span class="large-temp" id="city-temperature">37</span>
+              <span
+                class="degrees-of-temp degrees-of-temp:hover"
+                id="degree-celsius"
+                >°C</span
+              >
+              <span
+                class="degrees-of-temp degrees-of-temp:hover"
+                id="degree-fahrenheit"
+                >°F</span
+              >
+            </div>
+            <div id="weather-report">
+              Sunny <br />
+              <span>32°&nbsp;&nbsp;</span>
+              <span class="grey-temp">28°</span>
+            </div>
+          </div>
+          <div class="col params-container params" id="weather-params">
+            Precipitation: 10% <br />
+            Humidity: 90%<br />
+            Wind: 5 km/h
+          </div>
+        </div>
+      </div>
+      <!-- Weather forecast -->
+      <div class="row justify-content-center">
+        <div class="col-2 forecast">
+          <div>Mon</div>
+          <div>
+            <img
+              class="weather-icon"
+              src="images/sunny.png"
+              alt="sunny"
+              width="50"
+            />
+          </div>
+          <div>32°&nbsp;&nbsp;<span class="grey-temp">28°</span></div>
+        </div>
+        <div class="col-2 forecast">
+          <div>Tue</div>
+          <div>
+            <img
+              class="weather-icon"
+              src="images/sunny.png"
+              alt="sunny"
+              width="50"
+            />
+          </div>
+          <div>32°&nbsp;&nbsp;<span class="grey-temp">28°</span></div>
+        </div>
+        <div class="col-2 forecast">
+          <div>Wed</div>
+          <div>
+            <img
+              class="weather-icon"
+              src="images/sunny.png"
+              alt="sunny"
+              width="50"
+            />
+          </div>
+          <div>32°&nbsp;&nbsp;<span class="grey-temp">28°</span></div>
+        </div>
+        <div class="col-2 forecast">
+          <div>Thu</div>
+          <div>
+            <img
+              class="weather-icon"
+              src="images/sunny.png"
+              alt="sunny"
+              width="50"
+            />
+          </div>
+          <div>32°&nbsp;&nbsp;<span class="grey-temp">28°</span></div>
+        </div>
+        <div class="col-2 forecast">
+          <div>Fri</div>
+          <div>
+            <img
+              class="weather-icon"
+              src="images/sunny.png"
+              alt="sunny"
+              width="50"
+            />
+          </div>
+          <div>32°&nbsp;&nbsp;<span class="grey-temp">28°</span></div>
+        </div>
+      </div>
+    </div>
+    <script src="src/hw5.js"></script>
+  </body>
+</html>
