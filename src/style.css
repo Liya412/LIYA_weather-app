@@ -35,16 +35,6 @@ input {
   padding: 8px 20px;
 }
 
-.search-btn {
-  font-weight: 10px;
-  background: rgba(232, 236, 217, 0.6);
-  border: 2px solid rgb(231, 230, 325);
-  border-radius: 30px;
-  display: block;
-  padding: 3px 15px;
-  transition: all 300ms ease-in-out;
-}
-
 .search-btn5 {
   border: 1px solid #0b5ed7;
   border-radius: 6px;
