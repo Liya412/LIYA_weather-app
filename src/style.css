@@ -140,3 +140,17 @@ input {
   color: #b7b7b7;
   /*color: #929aab;*/
 }
+
+.attribution {
+  color: #1e1c1c;
+  font-family: "Outfit", sans-serif;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.attribution-link {
+  color: #0a5acf;
+  text-decoration: none;
+}
