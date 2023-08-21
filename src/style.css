@@ -1,19 +1,11 @@
 body {
+  background-image: url(images/sky.jpg);
   background: #e7e6e1;
 }
 
 h1 {
   font-weight: 400;
   margin-block-end: 0;
-}
-
-input {
-  color: #5c636e;
-  font-weight: 300;
-  background: rgba(232, 236, 217, 0.6);
-  border: none;
-  border-radius: 15px;
-  padding: 8px 20px;
 }
 
 .container {
@@ -27,12 +19,14 @@ input {
   width: 700px;
 }
 
-.search-box {
-  color: #5c636e;
-  font-weight: 300;
-  background: rgba(232, 236, 217, 0.6);
+.city-input {
+  border: none;
   border-radius: 15px;
-  padding: 8px 20px;
+  font-weight: 300;
+  padding: 7px 15px;
+  /*
+  background: rgba(232, 236, 217, 0.6);
+  */
 }
 
 .search-btn5 {
@@ -51,10 +45,17 @@ input {
   color: #fff;
 }
 
-.up-to-date-container {
+.current-weather-container {
   margin-block-start: 10px;
   margin-block-end: 30px;
   margin-inline-start: 14px;
+}
+
+.time {
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 24px;
+  margin-block-end: 30px;
 }
 
 .shanghai-temp {
@@ -96,13 +97,6 @@ input {
 .weather-icon {
   margin-block-start: 12px;
   margin-block-end: 12px;
-}
-
-.last-update {
-  font-weight: 300;
-  font-size: 18px;
-  line-height: 24px;
-  margin-block-end: 30px;
 }
 
 .params-container {

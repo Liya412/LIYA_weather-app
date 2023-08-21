@@ -1,6 +1,4 @@
-// Recap
-// Display the current date and time using JS
-
+// This function converts a Unix timestamp to a time
 function formatTime(date) {
   const weekDays = [
     "Sunday",
@@ -20,7 +18,7 @@ function formatTime(date) {
 }
 
 const now = new Date();
-const localTime = document.getElementById("local-time");
+const localTime = document.getElementById("time");
 localTime.innerHTML = formatTime(now);
 
 // Feature 1
@@ -58,7 +56,7 @@ function update(response) {
 // A callback function that fetches weather data based on the city name
 function getWeatherData(event) {
   event.preventDefault();
-  const userCity = document.getElementById("user-city").value;
+  const userCity = document.getElementById("city-input").value;
 
   const apiKey = "5aac6d0188c6f17d6d2bbe6591b6fef0";
   const unit = "metric";

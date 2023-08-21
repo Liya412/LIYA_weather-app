@@ -25,7 +25,7 @@
     <!-- Install Axios -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="src/style.css" />
-    <title>SheCodes Plus hw5</title>
+    <title>LIYA's weather app</title>
   </head>
   <body>
     <div class="container">
@@ -42,8 +42,8 @@
             <input
               type="text"
               placeholder="Enter a city..."
-              style="width: 28em"
-              id="user-city"
+              class="form-control city-input"
+              id="city-input"
             />
           </div>
           <div class="col-2">
@@ -57,9 +57,9 @@
         </div>
       </form>
       <!-- Local current temperature -->
-      <div class="up-to-date-container">
+      <div class="current-weather-container">
         <h1>Shanghai</h1>
-        <div class="last-update" id="local-time">Sunday 6:00pm</div>
+        <div class="time" id="time">Sunday 6:00pm</div>
         <div class="row">
           <div class="col-2">
             <img src="images/sunny.png" alt="sunny" width="100" />
@@ -85,9 +85,16 @@
             </div>
           </div>
           <div class="col params-container params" id="weather-params">
+            <ul>
+              <li>Precipitation: 10%</li>
+              <li>Humidity: 90%</li>
+              <li>Wind: 5 km/h</li>
+            </ul>
+            <!--
             Precipitation: 10% <br />
             Humidity: 90%<br />
             Wind: 5 km/h
+            -->
           </div>
         </div>
       </div>
