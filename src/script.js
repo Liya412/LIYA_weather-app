@@ -91,5 +91,5 @@ function success(position) {
   axios.get(apiUrl).then(update);
 }
 
-const crosshairs = document.getElementById("clickable-crosshairs");
+const crosshairs = document.getElementById("crosshairs");
 crosshairs.addEventListener("click", getPosition);

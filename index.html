@@ -24,18 +24,19 @@
     ></script>
     <!-- Install Axios -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- Link to .css -->
     <link rel="stylesheet" href="src/style.css" />
     <title>LIYA's weather app</title>
   </head>
   <body>
     <div class="container">
-      <!-- User searches for cities -->
+      <!-- Search engine -->
       <form id="search-form">
         <div class="row d-flex align-items-center">
           <div class="col-1">
             <i
               class="fa-solid fa-location-crosshairs fa-lg crosshairs"
-              id="clickable-crosshairs"
+              id="crosshairs"
             ></i>
           </div>
           <div class="col-9">
@@ -56,40 +57,39 @@
           </div>
         </div>
       </form>
-      <!-- Local current temperature -->
+      <!-- Current weather -->
       <div class="current-weather-container">
-        <h1>Shanghai</h1>
-        <div class="time" id="time">Sunday 6:00pm</div>
-        <div class="row">
-          <div class="col-2">
-            <img src="images/sunny.png" alt="sunny" width="100" />
+        <div class="mb-4">
+          <h1>Shanghai</h1>
+          <div class="time">
+            Last updated: <span id="time">Sunday 6:00pm</span>
           </div>
-          <div class="col-3 shanghai-temp">
-            <div class="d-flex align">
+        </div>
+        <div class="row">
+          <div class="col-3 weather-icon-box">
+            <img
+              src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/clear-sky-day.png"
+              alt="weather-icon"
+              width="100"
+              class="weather-icon"
+            />
+          </div>
+          <div class="col-3 weather-overview">
+            <div class="d-flex current-temp">
               <span class="large-temp" id="city-temperature">37</span>
-              <span
-                class="degrees-of-temp degrees-of-temp:hover"
-                id="degree-celsius"
-                >°C</span
-              >
-              <span
-                class="degrees-of-temp degrees-of-temp:hover"
-                id="degree-fahrenheit"
-                >°F</span
-              >
+              <span class="degrees-of-temp degrees-of-temp:hover">
+                <span id="degree-celsius">°C&nbsp;</span>
+                <span id="degree-fahrenheit">°F</span>
+              </span>
             </div>
             <div id="weather-report">
-              Sunny <br />
-              <span>32°&nbsp;&nbsp;</span>
-              <span class="grey-temp">28°</span>
+              <div>Sunny</div>
+              <div>
+                <span>32°&nbsp;&nbsp;</span><span class="grey-temp">28°</span>
+              </div>
             </div>
           </div>
           <div class="col params" id="weather-params">
-            <!--
-              Precipitation: 10% <br />
-              Humidity: 90%<br />
-              Wind: 5 km/h
-            -->
             <ul>
               <li>Precipitation: 10%</li>
               <li>Humidity: 90%</li>
