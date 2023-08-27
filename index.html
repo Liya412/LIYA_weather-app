@@ -60,7 +60,7 @@
       <!-- Current weather -->
       <div class="current-weather-container">
         <div class="mb-4">
-          <h1>Shanghai</h1>
+          <h1 id="city">Shanghai</h1>
           <div class="time">
             Last updated: <span id="time">Sunday 6:00pm</span>
           </div>
@@ -71,29 +71,33 @@
               src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/clear-sky-day.png"
               alt="weather-icon"
               width="100"
-              class="weather-icon"
+              class="current-weather-icon"
+              id="weather-icon"
             />
           </div>
-          <div class="col-3 weather-overview">
-            <div class="d-flex current-temp">
-              <span class="large-temp" id="city-temperature">37</span>
-              <span class="degrees-of-temp degrees-of-temp:hover">
+          <div class="col-5 weather-overview">
+            <div class="d-flex current-temp-flex">
+              <span class="current-temp">
+                <span id="current-temp">37</span>&nbsp;
+              </span>
+              <span class="degrees-of-temp">
                 <span id="degree-celsius">°C&nbsp;</span>
                 <span id="degree-fahrenheit">°F</span>
               </span>
             </div>
-            <div id="weather-report">
-              <div>Sunny</div>
+            <div>
+              <div class="description" id="description">Sunny</div>
               <div>
-                <span>32°&nbsp;&nbsp;</span><span class="grey-temp">28°</span>
+                <span id="current-temp-max">32°&nbsp;&nbsp;</span>
+                <span class="temp-min" id="current-temp-min">28°</span>
               </div>
             </div>
           </div>
           <div class="col params" id="weather-params">
             <ul>
-              <li>Precipitation: 10%</li>
-              <li>Humidity: 90%</li>
-              <li>Wind: 5 km/h</li>
+              <li>Pressure: <span id="pressure">1009</span> hPa</li>
+              <li>Humidity: <span id="humidity">90</span> %</li>
+              <li>Wind: <span id="wind-speed">5</span> km/h</li>
             </ul>
           </div>
         </div>
@@ -105,12 +109,12 @@
           <div>
             <img
               class="weather-icon"
-              src="images/sunny.png"
+              src="https://basmilius.github.io/weather-icons/production/fill/all/cloudy.svg"
               alt="sunny"
-              width="50"
+              width="70"
             />
           </div>
-          <div>32°&nbsp;&nbsp;<span class="grey-temp">28°</span></div>
+          <div>32°&nbsp;&nbsp;<span class="temp-min">28°</span></div>
         </div>
         <div class="col-2 forecast">
           <div>Tue</div>
@@ -119,22 +123,22 @@
               class="weather-icon"
               src="images/sunny.png"
               alt="sunny"
-              width="50"
+              width="70"
             />
           </div>
-          <div>32°&nbsp;&nbsp;<span class="grey-temp">28°</span></div>
+          <div>32°&nbsp;&nbsp;<span class="temp-min">28°</span></div>
         </div>
         <div class="col-2 forecast">
           <div>Wed</div>
           <div>
             <img
               class="weather-icon"
-              src="images/sunny.png"
+              src="https://basmilius.github.io/weather-icons/production/fill/all/partly-cloudy-night-rain.svg"
               alt="sunny"
-              width="50"
+              width="70"
             />
           </div>
-          <div>32°&nbsp;&nbsp;<span class="grey-temp">28°</span></div>
+          <div>32°&nbsp;&nbsp;<span class="temp-min">28°</span></div>
         </div>
         <div class="col-2 forecast">
           <div>Thu</div>
@@ -143,10 +147,10 @@
               class="weather-icon"
               src="images/sunny.png"
               alt="sunny"
-              width="50"
+              width="70"
             />
           </div>
-          <div>32°&nbsp;&nbsp;<span class="grey-temp">28°</span></div>
+          <div>32°&nbsp;&nbsp;<span class="temp-min">28°</span></div>
         </div>
         <div class="col-2 forecast">
           <div>Fri</div>
@@ -155,14 +159,15 @@
               class="weather-icon"
               src="images/sunny.png"
               alt="sunny"
-              width="50"
+              width="70"
             />
           </div>
-          <div>32°&nbsp;&nbsp;<span class="grey-temp">28°</span></div>
+          <div>32°&nbsp;&nbsp;<span class="temp-min">28°</span></div>
         </div>
       </div>
     </div>
     <!-- Attribution -->
+    <!--
     <div class="attribution">
       This page was coded by LIYA and is
       <a
@@ -170,7 +175,17 @@
         class="attribution-link"
         >open-sourced</a
       >.
-    </div>
+    </div>  
+    -->
+    <footer>
+      This page was coded by LIYA and is
+      <a
+        href="https://github.com/Liya412/LIYA_weather-app"
+        class="attribution-link"
+        >open-sourced</a
+      >.
+    </footer>
     <script src="src/script.js"></script>
+    <script src="src/weather-icons.js"></script>
   </body>
 </html>
