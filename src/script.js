@@ -17,7 +17,7 @@ function formatDate(timestamp) {
   return `${day} ${hour}:${min}`;
 }
 
-// This is a callback function responsible for updating the current weather info and icon
+// This is a function responsible for updating the current weather info and icon
 function updateOverview(response) {
   cTempCurrent = response.data.main.temp;
   cTempMax = response.data.main.temp_max;
@@ -113,6 +113,7 @@ function success(position) {
 const crosshairs = document.getElementById("crosshairs");
 crosshairs.addEventListener("click", getPosition);
 
+// This function converts Celsius to Fahrenheit and modifies the styling of scales
 function celToFahr(event) {
   event.preventDefault();
   const currentTemp = document.getElementById("current-temp");
@@ -121,8 +122,12 @@ function celToFahr(event) {
   tempMax.innerHTML = Math.round(cTempMax * 1.8 + 32) + "°&nbsp";
   const tempMin = document.getElementById("current-temp-min");
   tempMin.innerHTML = Math.round(cTempMin * 1.8 + 32) + "°";
+  // After converting cel to fahr
+  degreeCel.classList.remove("inactive"); // Remove the class "inactive" from cel
+  degreeFahr.classList.add("inactive"); // Add the class "inactive" to cel
 }
 
+// This function converts to Fahrenheit to Celsius and modifies the styling of scales
 function fahrToCel(event) {
   event.preventDefault();
   const currentTemp = document.getElementById("current-temp");
@@ -131,15 +136,45 @@ function fahrToCel(event) {
   tempMax.innerHTML = Math.round(cTempMax) + "°&nbsp";
   const tempMin = document.getElementById("current-temp-min");
   tempMin.innerHTML = Math.round(cTempMin) + "°";
+
+  degreeFahr.classList.remove("inactive");
+  degreeCel.classList.add("inactive");
 }
 
 // Global variables storing the current Celsius temperatures
-var cTempCurrent;
-var cTempMin;
-var cTempMax;
+let cTempCurrent;
+let cTempMin;
+let cTempMax;
 
-const fUnit = document.getElementById("degree-fahrenheit");
-fUnit.addEventListener("click", celToFahr);
+let degreeFahr = document.getElementById("degree-fahrenheit");
+degreeFahr.addEventListener("click", celToFahr);
 
-const cUnit = document.getElementById("degree-celsius");
-cUnit.addEventListener("click", fahrToCel);
+let degreeCel = document.getElementById("degree-celsius");
+degreeCel.addEventListener("click", fahrToCel);
+
+// This function repeats a block of code five times
+function repeatForecast() {
+  const forecast = document.getElementById("weather-forecast");
+
+  const fiveDays = ["Mon", "Tue", "Wed", "Thu", "Fri"];
+
+  let forecastHTML = `<div class="row justify-content-center">`;
+  fiveDays.forEach((element) => {
+    forecastHTML =
+      forecastHTML +
+      `<div class="col-2 forecast">
+          <div>${element}</div>
+          <img
+                class="weather-icon"
+                src="https://basmilius.github.io/weather-icons/production/fill/all/cloudy.svg"
+                alt="sunny"
+                width="70"
+          />
+          <div>32°&nbsp;&nbsp;<span class="temp-min">28°</span></div>
+        </div>`;
+  });
+  forecastHTML = forecastHTML + "</div>";
+  forecast.innerHTML = forecastHTML;
+}
+
+repeatForecast();

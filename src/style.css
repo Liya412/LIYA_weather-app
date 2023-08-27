@@ -76,7 +76,7 @@ footer {
   padding: 0;
 }
 
-.current-weather-icon {
+.weather-icon-box img {
   display: block;
   margin: 0 auto;
 }
@@ -103,8 +103,7 @@ footer {
   justify-content: flex-start;
 }
 
-.degrees-of-temp {
-  color: #0b5ed7;
+.temp-scales {
   align-items: flex-start;
   color: #0b5ed7;
   display: flex;
@@ -112,19 +111,24 @@ footer {
   text-decoration: none;
 }
 
-.degrees-of-temp:hover {
+.temp-scales:hover {
   cursor: pointer;
+}
+
+.inactive {
+  color: #1e1c1c;
+  cursor: default;
 }
 
 .forecast {
   font-weight: 500;
-  font-size: 16px;
+  font-size: 18px;
   text-align: center;
 }
 
 .weather-icon {
-  margin-block-start: 12px;
-  margin-block-end: 12px;
+  margin-block-start: 5px;
+  margin-block-end: 5px;
 }
 
 .params {
@@ -158,4 +162,7 @@ footer {
 .attribution-link {
   color: #0a5acf;
   text-decoration: none;
+}
+
+.inactive {
 }
