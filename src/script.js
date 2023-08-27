@@ -1,5 +1,5 @@
-// This function converts a Unix timestamp to a time
-function formatTime(date) {
+// This function converts a timestamp to time
+function formatDate(timestamp) {
   const weekDays = [
     "Sunday",
     "Monday",
@@ -9,51 +9,65 @@ function formatTime(date) {
     "Friday",
     "Saturday",
   ];
-
-  const day = weekDays[now.getDay()];
-  const hour = now.getHours();
-  const min = (now.getMinutes() < 10 ? "0" : "") + now.getMinutes();
-
+  const date = new Date(timestamp * 1000);
+  // Multiply the timestamp by 1000 so that the argument is in milliseconds
+  const day = weekDays[date.getDay()];
+  const hour = date.getHours();
+  const min = (date.getMinutes() < 10 ? "0" : "") + date.getMinutes();
   return `${day} ${hour}:${min}`;
 }
 
-const now = new Date();
-const localTime = document.getElementById("time");
-localTime.innerHTML = formatTime(now);
+// This is a callback function responsible for updating the current weather info and icon
+function updateOverview(response) {
+  cTempCurrent = response.data.main.temp;
+  cTempMax = response.data.main.temp_max;
+  cTempMin = response.data.main.temp_min;
 
-// Feature 1
-// When users search for a city, display the city name and the current temperature
+  // console.log(response.data);
+  const city = document.getElementById("city");
+  city.innerText = response.data.name;
+  const time = document.getElementById("time");
+  time.innerText = formatDate(response.data.dt);
 
-// A callback function responsible for updating the city name and temperature on the page
-function update(response) {
-  const cityData = response.data.name;
-  const tempData = Math.round(response.data.main.temp);
-  const maxTempData = Math.round(response.data.main.temp_max);
-  const minTempData = Math.round(response.data.main.temp_min);
-  const descrData = response.data.weather[0].main;
-  const humidityData = response.data.main.humidity;
-  const windSpeedData = Math.round(response.data.wind.speed);
+  const weatherIcon = document.getElementById("weather-icon");
+  weatherIcon.setAttribute(
+    "src",
+    weatherIconUrls[response.data.weather[0].icon]
+  );
+  const currentTemp = document.getElementById("current-temp");
+  currentTemp.innerText = Math.round(response.data.main.temp);
+  const descr = document.getElementById("description");
+  descr.innerText = response.data.weather[0].description;
+  const tempMax = document.getElementById("current-temp-max");
+  tempMax.innerHTML = Math.round(response.data.main.temp_max) + "°&nbsp";
+  const tempMin = document.getElementById("current-temp-min");
+  tempMin.innerHTML = Math.round(response.data.main.temp_min) + "°";
 
-  const city = document.querySelector("h1");
-  const temp = document.getElementById("city-temperature");
-  const weatherReport = document.getElementById("weather-report");
-  const weatherParams = document.getElementById("weather-params");
-
-  city.innerHTML = cityData;
-  temp.innerHTML = tempData;
-  weatherReport.innerHTML =
-    descrData + "<br />" + maxTempData + "°&nbsp;&nbsp" + minTempData + "°";
-  weatherParams.innerHTML =
-    "Humidity: " +
-    humidityData +
-    "%" +
-    "<br />" +
-    "Wind: " +
-    windSpeedData +
-    " km/h";
+  const pressure = document.getElementById("pressure");
+  pressure.innerHTML = Math.round(response.data.main.pressure);
+  const humidity = document.getElementById("humidity");
+  humidity.innerHTML = response.data.main.humidity;
+  const windSpeed = document.getElementById("wind-speed");
+  windSpeed.innerHTML = Math.round(response.data.wind.speed);
 }
 
-// A callback function that fetches weather data based on the city name
+// This is a funtion calling the realtime API from weatherapi.com
+function weatherApiCall(city) {
+  const apiKey = "5aac6d0188c6f17d6d2bbe6591b6fef0";
+  const unit = "metric";
+  const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${unit}`;
+  console.log(apiUrl);
+  axios
+    .get(apiUrl)
+    .then(updateOverview)
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
+weatherApiCall("tokyo");
+
+// This is a callback function calling the weather API from OpenWeather
 function getWeatherData(event) {
   event.preventDefault();
   const userCity = document.getElementById("city-input").value;
@@ -61,6 +75,8 @@ function getWeatherData(event) {
   const apiKey = "5aac6d0188c6f17d6d2bbe6591b6fef0";
   const unit = "metric";
   const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${userCity}&appid=${apiKey}&units=${unit}`;
+
+  // console.log(apiUrl);
   axios
     .get(apiUrl)
     .then(update)
@@ -75,7 +91,7 @@ searchForm.addEventListener("submit", getWeatherData);
 // Feature 3
 // Add a current location button. Click it to get users' location and the temperature in it
 
-// A callback function that obtains the current position
+// This is a callback function that obtains the current position
 function getPosition(event) {
   navigator.geolocation.getCurrentPosition(success);
 }
@@ -88,8 +104,42 @@ function success(position) {
   const apiKey = "5aac6d0188c6f17d6d2bbe6591b6fef0";
   const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${unit}`;
 
-  axios.get(apiUrl).then(update);
+  axios
+    .get(apiUrl)
+    .then(updateOverview)
+    .catch((error) => console.log(error));
 }
 
 const crosshairs = document.getElementById("crosshairs");
 crosshairs.addEventListener("click", getPosition);
+
+function celToFahr(event) {
+  event.preventDefault();
+  const currentTemp = document.getElementById("current-temp");
+  currentTemp.innerText = Math.round(cTempCurrent * 1.8 + 32);
+  const tempMax = document.getElementById("current-temp-max");
+  tempMax.innerHTML = Math.round(cTempMax * 1.8 + 32) + "°&nbsp";
+  const tempMin = document.getElementById("current-temp-min");
+  tempMin.innerHTML = Math.round(cTempMin * 1.8 + 32) + "°";
+}
+
+function fahrToCel(event) {
+  event.preventDefault();
+  const currentTemp = document.getElementById("current-temp");
+  currentTemp.innerText = Math.round(cTempCurrent);
+  const tempMax = document.getElementById("current-temp-max");
+  tempMax.innerHTML = Math.round(cTempMax) + "°&nbsp";
+  const tempMin = document.getElementById("current-temp-min");
+  tempMin.innerHTML = Math.round(cTempMin) + "°";
+}
+
+// Global variables storing the current Celsius temperatures
+var cTempCurrent;
+var cTempMin;
+var cTempMax;
+
+const fUnit = document.getElementById("degree-fahrenheit");
+fUnit.addEventListener("click", celToFahr);
+
+const cUnit = document.getElementById("degree-celsius");
+cUnit.addEventListener("click", fahrToCel);
