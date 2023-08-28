@@ -1,5 +1,4 @@
 body {
-  background-image: url(images/sky.jpg);
   background: #afc5ff;
   background: #c4c1e0;
   background: #fad3cf;
@@ -145,15 +144,6 @@ footer {
 
 .temp-min {
   color: #929aab;
-}
-
-.attribution {
-  color: #1e1c1c;
-  font-family: "Outfit", sans-serif;
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
 }
 
 .attribution-link {
