@@ -1,3 +1,5 @@
+// Feature 1
+// Take user input and update real-time weather information based on the city the user entered
 // This function converts a timestamp to time
 function formatDate(timestamp) {
   const weekDays = [
@@ -25,7 +27,6 @@ function updateOverview(response) {
   cTempMax = response.data.main.temp_max;
   cTempMin = response.data.main.temp_min;
 
-  // console.log(response.data);
   const city = document.getElementById("city");
   city.innerText = response.data.name;
   const time = document.getElementById("time");
@@ -61,112 +62,35 @@ function updateOverview(response) {
   // Store an object of coordinates in a variable
   let coords = response.data.coord;
   getForecast(coords);
+
+  degreeCel.classList.add("inactive");
+  degreeFahr.classList.remove("inactive");
 }
 
-// This funtion calls the realtime API from OpenWeather
+// This funtion calls the realtime weather API from OpenWeather
 function getCurrentWeather(event) {
   event.preventDefault();
   const city = document.getElementById("city-input").value;
 
   const apiKey = "5aac6d0188c6f17d6d2bbe6591b6fef0";
   const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-  console.log(apiUrl);
-  axios
-    .get(apiUrl)
-    .then(updateOverview)
-    .catch(function (error) {
-      console.log(error);
-    });
-}
-
-const searchForm = document.getElementById("search-form");
-searchForm.addEventListener("submit", getCurrentWeather);
-
-// This function calls the current weather API from OpenWeather
-function getWeatherData(event) {
-  event.preventDefault();
-  const userCity = document.getElementById("city-input").value;
-
-  const apiKey = "caa883a4a60d93878755b08a933f74ea";
-  const unit = "metric";
-  const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${userCity}&appid=${apiKey}&units=${unit}`;
-
   // console.log(apiUrl);
   axios
     .get(apiUrl)
-    .then(update)
+    .then(updateOverview)
     .catch(function (error) {
       console.log(error);
     });
 }
 
-// Feature 3
-// Add a current location button. Click it to get users' location and the temperature in it
-
-// This is a callback function that obtains the current position
-function getPosition(event) {
-  navigator.geolocation.getCurrentPosition(success);
-}
-
-// A callback function that fetches weather data based on latitude and longitude
-function success(position) {
-  const lat = position.coords.latitude;
-  const lon = position.coords.longitude;
-  const apiKey = "5aac6d0188c6f17d6d2bbe6591b6fef0";
-  const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
-
-  axios
-    .get(apiUrl)
-    .then(updateOverview)
-    .catch((error) => console.log(error));
-}
-
-const crosshairs = document.getElementById("crosshairs");
-crosshairs.addEventListener("click", getPosition);
-
-// This function converts Celsius to Fahrenheit and modifies the styling of scales
-function celToFahr(event) {
-  event.preventDefault();
-  const currentTemp = document.getElementById("current-temp");
-  currentTemp.innerText = Math.round(cTempCurrent * 1.8 + 32);
-  const tempMax = document.getElementById("current-temp-max");
-  tempMax.innerHTML = Math.round(cTempMax * 1.8 + 32) + "°&nbsp";
-  const tempMin = document.getElementById("current-temp-min");
-  tempMin.innerHTML = Math.round(cTempMin * 1.8 + 32) + "°";
-  // After converting cel to fahr
-  degreeCel.classList.remove("inactive"); // Remove the class "inactive" from cel
-  degreeFahr.classList.add("inactive"); // Add the class "inactive" to cel
-}
-
-// This function converts to Fahrenheit to Celsius and modifies the styling of scales
-function fahrToCel(event) {
-  event.preventDefault();
-  const currentTemp = document.getElementById("current-temp");
-  currentTemp.innerText = Math.round(cTempCurrent);
-  const tempMax = document.getElementById("current-temp-max");
-  tempMax.innerHTML = Math.round(cTempMax) + "°&nbsp";
-  const tempMin = document.getElementById("current-temp-min");
-  tempMin.innerHTML = Math.round(cTempMin) + "°";
-
-  degreeFahr.classList.remove("inactive");
-  degreeCel.classList.add("inactive");
-}
-
-// Global variables storing the current Celsius temperatures
-let cTempCurrent;
-let cTempMin;
-let cTempMax;
-
-let degreeFahr = document.getElementById("degree-fahrenheit");
-degreeFahr.addEventListener("click", celToFahr);
-
-let degreeCel = document.getElementById("degree-celsius");
-degreeCel.addEventListener("click", fahrToCel);
-
+// Feature 2
+// Update the weather forecast for the next five days accordingly
 // This function updates the weather forecast and repeats a block of code five times
 function updateForecast(response) {
   const dailyForecast = response.data.daily;
   let forecastHTML = `<div class="row justify-content-center">`;
+  arrayCTempMax = [];
+  arrayCTempMin = [];
 
   dailyForecast.forEach((element, index) => {
     if (0 < index && index < 6) {
@@ -180,12 +104,19 @@ function updateForecast(response) {
                 alt="sunny"
                 width="70"
           />
-          <div>${Math.round(
-            element.temp.max
-          )}°&nbsp;&nbsp;<span class="temp-min">${Math.round(
+          <div>
+            <span id=day${index}-temp-max>${Math.round(
+          element.temp.max
+        )}</span>°&nbsp;&nbsp;
+            <span class="temp-min"><span id=day${index}-temp-min>${Math.round(
           element.temp.min
-        )}</span></div>
+        )}</span>°</span>
+          </div>
         </div>`;
+      arrayCTempMax.push(element.temp.max);
+      console.log(arrayCTempMax);
+      arrayCTempMin.push(element.temp.min);
+      console.log(arrayCTempMin);
     }
   });
   forecastHTML = forecastHTML + "</div>";
@@ -217,4 +148,100 @@ function initialization() {
     .catch((error) => console.log(error));
 }
 
+// Feature 3
+// Add a "Current Location" button. Clicking it will fetch the user's location and display the temperature for that location
+// This is a callback function that obtains the current position
+function getPosition(event) {
+  navigator.geolocation.getCurrentPosition(success);
+}
+
+// A callback function that fetches weather data based on latitude and longitude
+function success(position) {
+  const lat = position.coords.latitude;
+  const lon = position.coords.longitude;
+  const apiKey = "5aac6d0188c6f17d6d2bbe6591b6fef0";
+  const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+
+  axios
+    .get(apiUrl)
+    .then(updateOverview)
+    .catch((error) => console.log(error));
+}
+
+// Feature 4
+// Toggle between Celsius and Fahrenheit units
+// This function converts Celsius to Fahrenheit and modifies the styling of scales
+function celToFahr(event) {
+  event.preventDefault();
+  // Current weather
+  const currentTemp = document.getElementById("current-temp");
+  currentTemp.innerText = Math.round(cTempCurrent * 1.8 + 32);
+  const tempMax = document.getElementById("current-temp-max");
+  tempMax.innerHTML = Math.round(cTempMax * 1.8 + 32) + "°&nbsp";
+  const tempMin = document.getElementById("current-temp-min");
+  tempMin.innerHTML = Math.round(cTempMin * 1.8 + 32) + "°";
+
+  // Weather forcast
+  for (let i = 0; i <= arrayCTempMax.length - 1; i++) {
+    const dailyTempMax = document.getElementById(`day${i + 1}-temp-max`);
+    dailyTempMax.innerText = Math.round(arrayCTempMax[i] * 1.8 + 32);
+  }
+  for (let i = 0; i <= arrayCTempMin.length - 1; i++) {
+    const dailyTempMin = document.getElementById(`day${i + 1}-temp-min`);
+    dailyTempMin.innerText = Math.round(arrayCTempMin[i] * 1.8 + 32);
+  }
+
+  // After converting cel to fahr
+  degreeCel.classList.remove("inactive"); // Remove the class "inactive" from cel
+  degreeFahr.classList.add("inactive"); // Add the class "inactive" to cel
+}
+
+// This function converts to Fahrenheit to Celsius and modifies the styling of scales
+function fahrToCel(event) {
+  event.preventDefault();
+  const currentTemp = document.getElementById("current-temp");
+  currentTemp.innerText = Math.round(cTempCurrent);
+  const tempMax = document.getElementById("current-temp-max");
+  tempMax.innerHTML = Math.round(cTempMax) + "°&nbsp";
+  const tempMin = document.getElementById("current-temp-min");
+  tempMin.innerHTML = Math.round(cTempMin) + "°";
+
+  // Weather forcast
+  for (let i = 0; i <= arrayCTempMax.length - 1; i++) {
+    const dailyTempMax = document.getElementById(`day${i + 1}-temp-max`);
+    dailyTempMax.innerText = Math.round(arrayCTempMax[i]);
+  }
+  for (let i = 0; i <= arrayCTempMin.length - 1; i++) {
+    const dailyTempMin = document.getElementById(`day${i + 1}-temp-min`);
+    dailyTempMin.innerText = Math.round(arrayCTempMin[i]);
+  }
+
+  degreeFahr.classList.remove("inactive");
+  degreeCel.classList.add("inactive");
+}
+
+// Setting up the page
 initialization();
+
+// Global variables storing the current Celsius temperatures
+let cTempCurrent;
+let cTempMin;
+let cTempMax;
+let arrayCTempMax = [];
+let arrayCTempMin = [];
+
+// Get the user's location and update the weather info accordingly when the crosshairs are clicked
+const crosshairs = document.getElementById("crosshairs");
+crosshairs.addEventListener("click", getPosition);
+
+// Get and update the weather info for the entered city when the form is submitted
+const searchForm = document.getElementById("search-form");
+searchForm.addEventListener("submit", getCurrentWeather);
+
+// Convert Celsius to Fahrenheit when the Fahrenheit scale is clicked
+let degreeFahr = document.getElementById("degree-fahrenheit");
+degreeFahr.addEventListener("click", celToFahr);
+
+// Convert Fahrenheit to Celsius when the Celsius scale is clicked
+let degreeCel = document.getElementById("degree-celsius");
+degreeCel.addEventListener("click", fahrToCel);
