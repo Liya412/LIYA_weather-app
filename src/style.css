@@ -4,7 +4,6 @@ body {
   background: #afc5ff;
   background: #c4c1e0;
   background: #fad3cf;
-
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -162,7 +161,4 @@ footer {
 .attribution-link {
   color: #0a5acf;
   text-decoration: none;
-}
-
-.inactive {
 }
