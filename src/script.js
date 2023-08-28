@@ -12,10 +12,10 @@ function formatDate(timestamp) {
   const date = new Date(timestamp * 1000);
   // Multiply the timestamp by 1000 so that the argument is in milliseconds
   const day = weekDays[date.getDay()];
-  const hour = date.getHours();
+  const hour = ((date.getHours() + 11) % 12) + 1; // Convert 24 hour time to 12 hour time
   const min = (date.getMinutes() < 10 ? "0" : "") + date.getMinutes();
-  // return `${day} ${hour}:${min}`;
-  return { DD: day, HH: hour, mm: min };
+  const suffix = date.getHours() < 12 ? "AM" : "PM";
+  return { DD: day, HH: hour, mm: min, noon: suffix };
 }
 
 // This is a function responsible for updating the current weather info and icon
@@ -34,7 +34,9 @@ function updateOverview(response) {
     " " +
     formatDate(response.data.dt).HH +
     ":" +
-    formatDate(response.data.dt).mm;
+    formatDate(response.data.dt).mm +
+    " " +
+    formatDate(response.data.dt).noon;
   const weatherIcon = document.getElementById("weather-icon");
   weatherIcon.setAttribute(
     "src",
