@@ -1,6 +1,5 @@
 body {
   background-image: url(images/sky.jpg);
-  background: #e7e6e1;
   background: #afc5ff;
   background: #c4c1e0;
   background: #fad3cf;
@@ -145,7 +144,6 @@ footer {
 }
 
 .temp-min {
-  /*color: #b7b7b7;*/
   color: #929aab;
 }
 
