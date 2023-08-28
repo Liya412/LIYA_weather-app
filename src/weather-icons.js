@@ -1,3 +1,5 @@
+// Animated SVG weather icons desinged by Bas Milius
+// View on GitHub: https://basmilius.github.io/weather-icons/index-fill.html
 var weatherIconUrls = {
   "01d":
     "https://basmilius.github.io/weather-icons/production/fill/all/clear-day.svg",
